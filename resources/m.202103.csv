@@ -1,4 +1,4 @@
-item_name,is_expense,quantity,sum_of_one
+item_name,is_expense,quantity,unit_price
 Заточка коньков,TRUE,50,200
 Разморозка ледопарка,TRUE,1,20000
 Организация специального концерта,TRUE,1,60000
