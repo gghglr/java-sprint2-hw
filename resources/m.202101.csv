@@ -1,4 +1,4 @@
-item_name,is_expense,quantity,sum_of_one
+item_name,is_expense,quantity,unit_price
 Коньки,TRUE,50,2000
 Новогодняя ёлка,TRUE,1,100000
 Ларёк с кофе,TRUE,3,50000
