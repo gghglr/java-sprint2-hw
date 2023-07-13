@@ -1,33 +1,34 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MonthlyReport {
-    public HashMap<String, ArrayList<MonthleReportSave>> savesMonth = new HashMap<>();
+    public HashMap<Integer, ArrayList<MonthleReportSave>> savesMonth = new HashMap<>();
     public ArrayList<MonthleReportSave> saves;
-
-    public void loadFile(String nameMon, String path) {
-        String content = readFilesContentsOrNull(path);
-        String[] lines = content.split("\r?\n"); // Коньки,TRUE,50,2000
-        saves = new ArrayList<>();
-        for (int i = 1; i < lines.length; i++) {
-            String line = lines[i];
-            String[] part = line.split(",");
-            String name = part[0];
-            boolean isExp = Boolean.parseBoolean(part[1]);
-            int quantity = Integer.parseInt(part[2]);
-            int price = Integer.parseInt(part[3]);
-            MonthleReportSave monthleReportSave = new MonthleReportSave(name, isExp, quantity, price);
-            saves.add(monthleReportSave);
+    public ArrayList<String> lines;
+    FileReader fileReader = new FileReader();
+    public void readMonthlyReports(){
+        int nameMon = 1;
+        for (int i = 1; i < 4; i++) {
+            String fileName = "m.20210" + i + ".csv";
+            lines = fileReader.readFileContents(fileName);
+            saves = new ArrayList<>();
+            for (int j = 1; j < lines.size(); j++) {
+                String line = lines.get(j);
+                String[] part = line.split(",");
+                String name = part[0];
+                boolean isExp = Boolean.parseBoolean(part[1]);
+                int quantity = Integer.parseInt(part[2]);
+                int price = Integer.parseInt(part[3]);
+                MonthleReportSave monthleReportSave = new MonthleReportSave(name, isExp, quantity, price);
+                saves.add(monthleReportSave);
+            }
+            savesMonth.put(nameMon, saves);
+            nameMon +=1;
         }
-        savesMonth.put(nameMon, saves);
     }
-
     public String montInfo() {
         int i = 1;
-        for (String list : savesMonth.keySet()) {
+        for (Integer list : savesMonth.keySet()) {
             int maxSum = 0; //макс прибыль
             int minus = 0;
             String nameProd ="";
@@ -54,12 +55,4 @@ public class MonthlyReport {
         }
         return "";
     }
-        public String readFilesContentsOrNull (String path){
-            try {
-                return Files.readString(Path.of(path));
-            } catch (IOException e) {
-                System.out.println("Невозможно прочитать файл с отчётом. Возможно, файл отсутствует в нужной директории.");
-                return null;
-            }
-        }
 }

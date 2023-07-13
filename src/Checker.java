@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
 public class Checker {
@@ -13,7 +13,7 @@ public class Checker {
         boolean сheck1 = true;
         HashMap<Integer, HashMap<Boolean, Integer>> report = new HashMap<>();//мапа где лежит ключ - Номер месяца и еще мапа где ключ - true/false + деньги
         // мапа по годам
-        for (YearleReportSave save : yearlyReport.saves) {
+        for (YearleReportSave save : yearlyReport.savesYear) {
             if(!report.containsKey(save.monthNumber)){
                 report.put(save.monthNumber, new HashMap<>());
             }
@@ -22,15 +22,13 @@ public class Checker {
         }
         HashMap<Integer, HashMap<Boolean, Integer>> reportMonth = new HashMap<>();
         // мапа по месяцам
-        int name1 = 0;
-        for(String name : monthlyReport.savesMonth.keySet()){
-            name1 = Integer.parseInt(name);
+        for(Integer name : monthlyReport.savesMonth.keySet()){
             for(MonthleReportSave reportM : monthlyReport.savesMonth.get(name)){
-                if(!reportMonth.containsKey(name1)){
+                if(!reportMonth.containsKey(name)){
                     //парсим ключ и получем инт(число месяца)
-                    reportMonth.put(name1, new HashMap<>());
+                    reportMonth.put(name, new HashMap<>());
                 }
-                HashMap<Boolean, Integer> monthToCount = reportMonth.get(name1);
+                HashMap<Boolean, Integer> monthToCount = reportMonth.get(name);
                 int sumProduct = reportM.price * reportM.quantity;
                 monthToCount.put(reportM.isExp, monthToCount.getOrDefault(reportM.isExp , 0) + sumProduct);
 

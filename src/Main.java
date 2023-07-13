@@ -1,7 +1,4 @@
-import com.sun.source.tree.WhileLoopTree;
-
 import java.util.Scanner;
-import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
@@ -15,11 +12,9 @@ public class Main {
             printMenu();
             int command = scanner.nextInt();
             if(command == 1){
+                System.out.println("Считывание произошло успешно");
                 checkGetMonthReport = true;
-                monthlyReport.loadFile("01", "resources/m.202101.csv");
-                monthlyReport.loadFile("02", "resources/m.202102.csv");
-                monthlyReport.loadFile("3", "resources/m.202103.csv");
-                System.out.println("Файлы считаны успешно.");
+                monthlyReport.readMonthlyReports();
                 System.out.println("Хотите вывести информацию по месячным отчетам?");
                 while (true) {
                     printYesNo();
@@ -35,9 +30,9 @@ public class Main {
                 }
             }
             else if (command == 2){
+                System.out.println("Считывание произошло успешно");
                 checkGetYearReport = true;
-                yearlyReport.loadFile("resources/y.2021.csv");
-                System.out.println("Файл считан успешно.");
+                yearlyReport.readYearReports();
                 System.out.println("Хотите вывести информацию по годовому отчету?");
                 while (true) {
                     printYesNo();
